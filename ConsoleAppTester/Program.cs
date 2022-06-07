@@ -35,16 +35,26 @@ namespace ConsoleAppTester
 
     internal class Program
     {
-        public static List<Test> list = new List<Test>();
+        public static List<Test> listOfAllTests = new List<Test>();
 
         public struct Test
         {
             public string testName;
-            public int questionCount;
-            public int answerCount;
-            public string questionText;
-            public string[] answersArray; //проблема с инициализацией массива
-            public int rightAnswerId;
+            public int testQuestionsCount;
+            public int questionAnswersCount;
+            public string[] questionsArray;
+            public string[,] answersArray;
+            public int[] rightAnswersArray;
+
+            //public Test(string testName, int testQuestionsCount, int questionAnswersCount, string[] questionsArray, string[,] answersArray, int[] rightAnswersArray)
+            //{
+            //    this.testName = testName;
+            //    this.testQuestionsCount = testQuestionsCount;
+            //    this.questionAnswersCount = questionAnswersCount;
+            //    this.questionsArray = questionsArray;
+            //    this.answersArray = answersArray;
+            //    this.rightAnswersArray = rightAnswersArray;
+            //}
         }
 
         static void CreateNewTest()
@@ -55,32 +65,30 @@ namespace ConsoleAppTester
             test.testName = Console.ReadLine();
 
             Console.WriteLine("Введите количество вопросов теста");
-            test.questionCount = int.Parse(Console.ReadLine());
+            test.testQuestionsCount = int.Parse(Console.ReadLine());
+            test.questionsArray = new string[test.testQuestionsCount];
 
-            for (int i = 0; i < test.questionCount; i++)
+            Console.WriteLine("Введите количество вариантов ответа");
+            test.questionAnswersCount = int.Parse(Console.ReadLine());
+            test.answersArray = new string[test.testQuestionsCount, test.questionAnswersCount];
+
+            for (int i = 0; i < test.testQuestionsCount; i++)
             {
                 Console.WriteLine($"Введите вопрос теста №{i+1}");
-                test.questionText = Console.ReadLine();
+                test.questionsArray[i] = Console.ReadLine();
 
-                Console.WriteLine("Введите количество вариантов ответа");
-                test.answerCount = int.Parse(Console.ReadLine());
-
-                for (int j = 1; j < test.answerCount; j++)
+                for (int j = 0; j < test.questionAnswersCount; j++)
                 {
-                    Console.WriteLine($"Введите вариант ответа №{j}");
-                    test.answersArray[j-1] = Console.ReadLine();
+                    Console.WriteLine($"Введите вариант ответа №{j+1}");
+                    test.answersArray[i,j] = Console.ReadLine();
                 }
 
                 Console.WriteLine("Введите номер правильно ответа");
-                test.rightAnswerId = int.Parse(Console.ReadLine());
-
-                list.Add(test);
+                test.rightAnswersArray = new int[test.testQuestionsCount];
+                test.rightAnswersArray[i] = int.Parse(Console.ReadLine());
             }
 
-            
-
-            
-
+            listOfAllTests.Add(test);
         }
 
         static void StartTest()
