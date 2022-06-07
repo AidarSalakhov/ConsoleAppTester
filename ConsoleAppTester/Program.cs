@@ -35,26 +35,29 @@ namespace ConsoleAppTester
 
     internal class Program
     {
+        public static List<Test> list = new List<Test>();
+
         public struct Test
         {
+            public string testName;
+            public int questionCount;
             public int answerCount;
             public string questionText;
-            public string[] answersArray;
+            public string[] answersArray; //проблема с инициализацией массива
+            public int rightAnswerId;
         }
 
         static void CreateNewTest()
         {
             Test test = new Test();
 
-            List<Test> list = new List<Test>();
-
             Console.WriteLine("Введите название теста");
-            string testName = Console.ReadLine();
+            test.testName = Console.ReadLine();
 
             Console.WriteLine("Введите количество вопросов теста");
-            int questionCount = int.Parse(Console.ReadLine());
+            test.questionCount = int.Parse(Console.ReadLine());
 
-            for (int i = 0; i < questionCount; i++)
+            for (int i = 0; i < test.questionCount; i++)
             {
                 Console.WriteLine($"Введите вопрос теста №{i+1}");
                 test.questionText = Console.ReadLine();
@@ -66,9 +69,10 @@ namespace ConsoleAppTester
                 {
                     Console.WriteLine($"Введите вариант ответа №{j}");
                     test.answersArray[j-1] = Console.ReadLine();
-
-
                 }
+
+                Console.WriteLine("Введите номер правильно ответа");
+                test.rightAnswerId = int.Parse(Console.ReadLine());
 
                 list.Add(test);
             }
