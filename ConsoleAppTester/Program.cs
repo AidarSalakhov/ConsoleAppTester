@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace ConsoleAppTester
 {
@@ -35,25 +37,45 @@ namespace ConsoleAppTester
     {
         public struct Test
         {
-            public int num;
-            public string text;
+            public int answerCount;
+            public string questionText;
+            public string[] answersArray;
         }
 
         static void CreateNewTest()
         {
+            Test test = new Test();
+
+            List<Test> list = new List<Test>();
+
             Console.WriteLine("Введите название теста");
             string testName = Console.ReadLine();
 
             Console.WriteLine("Введите количество вопросов теста");
-            int answerCount = int.Parse(Console.ReadLine());
+            int questionCount = int.Parse(Console.ReadLine());
 
-            Test test = new Test();
+            for (int i = 0; i < questionCount; i++)
+            {
+                Console.WriteLine($"Введите вопрос теста №{i+1}");
+                test.questionText = Console.ReadLine();
 
-            test.num = 1;
-            test.text = "new";
+                Console.WriteLine("Введите количество вариантов ответа");
+                test.answerCount = int.Parse(Console.ReadLine());
 
-            List<Test> list = new List<Test>();
-            list.Add(test);
+                for (int j = 1; j < test.answerCount; j++)
+                {
+                    Console.WriteLine($"Введите вариант ответа №{j}");
+                    test.answersArray[j-1] = Console.ReadLine();
+
+
+                }
+
+                list.Add(test);
+            }
+
+            
+
+            
 
         }
 
