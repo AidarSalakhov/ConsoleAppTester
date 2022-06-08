@@ -37,75 +37,26 @@ namespace ConsoleAppTester
     {
         public static List<Question> Test = new List<Question>();
 
+        public static Question question = new Question();
+
         public struct Question
         {
-            public string testName;
-            public int testQuestionsCount;
-            public int questionAnswersCount;
             public string question;
             public string[] questionAnswers;
             public int questionRightAnswer;
 
-            public Question(string testName, int testQuestionsCount, int questionAnswersCount) :this()
+            
+            public string QUESTION
             {
-                this.testName = testName;
-                this.testQuestionsCount = testQuestionsCount;
-                this.questionAnswersCount = questionAnswersCount;
+                get { return question; }
+                set { question = value; }
             }
 
-            public Question(string question, string[] questionAnswers, int questionRightAnswer) : this()
-            {
-                this.question = question;
-                this.questionAnswers = questionAnswers;
-                this.questionRightAnswer = questionRightAnswer;
-            }
         }
 
-        static void SaveTest(string testName)
+        static void Main(string[] args)
         {
-            string json = JsonConvert.SerializeObject(Test);
-            File.WriteAllText($"{testName}.txt", json);
-        }
-
-        static void CreateNewTest()
-        {
-            Question question = new Question();
-
-            Console.WriteLine("Введите название теста");
-            question.testName = Console.ReadLine();
-
-            Console.WriteLine("Введите количество вопросов теста");
-            question.testQuestionsCount = int.Parse(Console.ReadLine());
-            question.questionsArray = new string[question.testQuestionsCount];
-
-            Console.WriteLine("Введите количество вариантов ответа");
-            question.questionAnswersCount = int.Parse(Console.ReadLine());
-            question.answersArray = new string[question.testQuestionsCount, question.questionAnswersCount];
-
-            for (int i = 0; i < question.testQuestionsCount; i++)
-            {
-                Console.WriteLine($"Введите вопрос теста №{i+1}");
-                question.questionsArray[i] = Console.ReadLine();
-
-                for (int j = 0; j < question.questionAnswersCount; j++)
-                {
-                    Console.WriteLine($"Введите вариант ответа №{j+1}");
-                    question.answersArray[i,j] = Console.ReadLine();
-                }
-
-                Console.WriteLine("Введите номер правильно ответа");
-                question.rightAnswersArray = new int[question.testQuestionsCount];
-                question.rightAnswersArray[i] = int.Parse(Console.ReadLine());
-            }
-
-            SaveTest(question.testName);
-
-            Test.Add(question);
-        }
-
-        static void StartTest()
-        {
-
+            Menu();
         }
 
         static void Menu()
@@ -114,18 +65,15 @@ namespace ConsoleAppTester
             Console.WriteLine("\t[S] - Пройти тест");
             Console.WriteLine("\t[N] - Создать тест");
 
-
             ConsoleKey key = Console.ReadKey(true).Key;
 
             switch (key)
             {
                 case ConsoleKey.S:
                     StartTest();
-                    Console.Clear();
                     break;
 
                 case ConsoleKey.N:
-                    Console.Clear();
                     CreateNewTest();
                     break;
 
@@ -134,9 +82,99 @@ namespace ConsoleAppTester
             }
         }
 
-        static void Main(string[] args)
+        static void SaveTest(string testName)
         {
-            Menu();
+            try
+            {
+                string json = JsonConvert.SerializeObject(Test);
+                File.WriteAllText($"{testName}.txt", json);
+            }
+            catch (Exception) 
+            {
+                Console.Clear();
+                Console.WriteLine("Ошибка! Не удалось сохранить!\n");
+                Menu();
+            }
+        }
+
+        static void PrintTest()
+        {
+            for (int i = 0; i < Test.Count; i++)
+            {
+                Console.WriteLine(question.QUESTION); 
+            }
+
+        }
+
+        static void LoadTest(string testName)
+        {
+            try
+            {
+                string json = File.ReadAllText($"{testName}.txt").ToString();
+
+                Test = JsonConvert.DeserializeObject<List<Question>>(json);
+            }
+            catch (Exception)
+            {
+                Console.Clear();
+                Console.WriteLine("Ошибка! Такого теста не существует!\n");
+                Menu();
+            }
+        }
+
+        static void CreateNewTest()
+        {
+            Console.Clear();
+            
+            Console.WriteLine("\nВведите название теста:");
+            string testName = Console.ReadLine();
+
+            Console.WriteLine("\nВведите количество вопросов теста:");
+            int testQuestionsCount = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("\nВведите количество вариантов ответа одного вопроса:");
+            int questionAnswersCount = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < testQuestionsCount; i++)
+            {
+                Console.Clear();
+
+                Console.WriteLine($"\nВведите вопрос теста #{i+1}:");
+                question.question = Console.ReadLine();
+
+                question.questionAnswers = new string[questionAnswersCount];
+
+                for (int j = 0; j < questionAnswersCount; j++)
+                {
+                    Console.WriteLine($"\n\tВведите вариант ответа ({j+1}):");
+                    
+                    question.questionAnswers[j] = Console.ReadLine();
+                }
+
+                Console.WriteLine("\nВведите номер правильного ответа:");
+                question.questionRightAnswer = int.Parse(Console.ReadLine());
+
+                Test.Add(question);
+            }
+            
+            SaveTest(testName);
+
+            Console.Clear();
+
+            Console.WriteLine($"\nТест сохранён в файл. Название теста для его прохождения: {testName}");
+        }
+
+        static void StartTest()
+        {
+            Console.Clear();
+
+            Console.WriteLine("Введите название теста для его прохождения:");
+
+            string testName = Console.ReadLine();
+
+            LoadTest(testName);
+
+            PrintTest();
         }
     }
 }
