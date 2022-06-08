@@ -69,38 +69,38 @@ namespace ConsoleAppTester
 
         static void CreateNewTest()
         {
-            Test test = new Test();
+            Question question = new Question();
 
             Console.WriteLine("Введите название теста");
-            test.testName = Console.ReadLine();
+            question.testName = Console.ReadLine();
 
             Console.WriteLine("Введите количество вопросов теста");
-            test.testQuestionsCount = int.Parse(Console.ReadLine());
-            test.questionsArray = new string[test.testQuestionsCount];
+            question.testQuestionsCount = int.Parse(Console.ReadLine());
+            question.questionsArray = new string[question.testQuestionsCount];
 
             Console.WriteLine("Введите количество вариантов ответа");
-            test.questionAnswersCount = int.Parse(Console.ReadLine());
-            test.answersArray = new string[test.testQuestionsCount, test.questionAnswersCount];
+            question.questionAnswersCount = int.Parse(Console.ReadLine());
+            question.answersArray = new string[question.testQuestionsCount, question.questionAnswersCount];
 
-            for (int i = 0; i < test.testQuestionsCount; i++)
+            for (int i = 0; i < question.testQuestionsCount; i++)
             {
                 Console.WriteLine($"Введите вопрос теста №{i+1}");
-                test.questionsArray[i] = Console.ReadLine();
+                question.questionsArray[i] = Console.ReadLine();
 
-                for (int j = 0; j < test.questionAnswersCount; j++)
+                for (int j = 0; j < question.questionAnswersCount; j++)
                 {
                     Console.WriteLine($"Введите вариант ответа №{j+1}");
-                    test.answersArray[i,j] = Console.ReadLine();
+                    question.answersArray[i,j] = Console.ReadLine();
                 }
 
                 Console.WriteLine("Введите номер правильно ответа");
-                test.rightAnswersArray = new int[test.testQuestionsCount];
-                test.rightAnswersArray[i] = int.Parse(Console.ReadLine());
+                question.rightAnswersArray = new int[question.testQuestionsCount];
+                question.rightAnswersArray[i] = int.Parse(Console.ReadLine());
             }
 
-            SaveTest(test.testName);
+            SaveTest(question.testName);
 
-            Test.Add(test);
+            Test.Add(question);
         }
 
         static void StartTest()
