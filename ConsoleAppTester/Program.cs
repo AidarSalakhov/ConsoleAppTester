@@ -35,26 +35,36 @@ namespace ConsoleAppTester
 
     internal class Program
     {
-        public static List<Test> listOfAllTests = new List<Test>();
+        public static List<Question> Test = new List<Question>();
 
-        public struct Test
+        public struct Question
         {
             public string testName;
             public int testQuestionsCount;
             public int questionAnswersCount;
-            public string[] questionsArray;
-            public string[,] answersArray;
-            public int[] rightAnswersArray;
+            public string question;
+            public string[] questionAnswers;
+            public int questionRightAnswer;
 
-            //public Test(string testName, int testQuestionsCount, int questionAnswersCount, string[] questionsArray, string[,] answersArray, int[] rightAnswersArray)
-            //{
-            //    this.testName = testName;
-            //    this.testQuestionsCount = testQuestionsCount;
-            //    this.questionAnswersCount = questionAnswersCount;
-            //    this.questionsArray = questionsArray;
-            //    this.answersArray = answersArray;
-            //    this.rightAnswersArray = rightAnswersArray;
-            //}
+            public Question(string testName, int testQuestionsCount, int questionAnswersCount) :this()
+            {
+                this.testName = testName;
+                this.testQuestionsCount = testQuestionsCount;
+                this.questionAnswersCount = questionAnswersCount;
+            }
+
+            public Question(string question, string[] questionAnswers, int questionRightAnswer) : this()
+            {
+                this.question = question;
+                this.questionAnswers = questionAnswers;
+                this.questionRightAnswer = questionRightAnswer;
+            }
+        }
+
+        static void SaveTest(string testName)
+        {
+            string json = JsonConvert.SerializeObject(Test);
+            File.WriteAllText($"{testName}.txt", json);
         }
 
         static void CreateNewTest()
@@ -88,7 +98,9 @@ namespace ConsoleAppTester
                 test.rightAnswersArray[i] = int.Parse(Console.ReadLine());
             }
 
-            listOfAllTests.Add(test);
+            SaveTest(test.testName);
+
+            Test.Add(test);
         }
 
         static void StartTest()
