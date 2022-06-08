@@ -45,13 +45,6 @@ namespace ConsoleAppTester
             public string[] questionAnswers;
             public int questionRightAnswer;
 
-            
-            public string QUESTION
-            {
-                get { return question; }
-                set { question = value; }
-            }
-
         }
 
         static void Main(string[] args)
@@ -97,13 +90,34 @@ namespace ConsoleAppTester
             }
         }
 
-        static void PrintTest()
+        static double PrintTest()
         {
+            int userRightAnswers = 0;
+
             for (int i = 0; i < Test.Count; i++)
             {
-                Console.WriteLine(question.QUESTION); 
+                Console.WriteLine(Test[i].question);
+
+                Console.WriteLine("\nВарианты ответов:");
+
+                for (int j = 0; j < Test[i].questionAnswers.Length; j++)
+                {
+                    Console.Write($"{j+1}) {Test[i].questionAnswers[j]}\t");
+                }
+
+                Console.WriteLine("\nВведите номер правильного ответа:");
+
+                double userAnswer = int.Parse(Console.ReadLine());
+
+                if (userAnswer == Test[i].questionRightAnswer)
+                {
+                    userRightAnswers++;
+                }
             }
 
+            double percentRightAnswers = System.Math.Round((double)(userRightAnswers / Convert.ToDouble(Test.Count) * 100));
+
+            return percentRightAnswers;
         }
 
         static void LoadTest(string testName)
@@ -162,6 +176,8 @@ namespace ConsoleAppTester
             Console.Clear();
 
             Console.WriteLine($"\nТест сохранён в файл. Название теста для его прохождения: {testName}");
+
+            Menu();
         }
 
         static void StartTest()
@@ -174,7 +190,11 @@ namespace ConsoleAppTester
 
             LoadTest(testName);
 
-            PrintTest();
+            Console.Clear();
+
+            Console.WriteLine($"Тест завершён. Процент правильных ответов: {PrintTest()}");
+
+            Menu();
         }
     }
 }
