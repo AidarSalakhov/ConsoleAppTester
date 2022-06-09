@@ -166,6 +166,8 @@ namespace ConsoleAppTester
                     userRightAnswers++;
             }
 
+            Console.Clear();
+
             Console.WriteLine($"\n\nТест завершён в {DateTime.Now}. Процент правильных ответов: {System.Math.Round((double)(userRightAnswers / Convert.ToDouble(Test.Count) * 100))}%\n");
 
             Test.Clear();
