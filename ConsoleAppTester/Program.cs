@@ -182,43 +182,28 @@ namespace ConsoleAppTester
 
             Console.WriteLine("\n/Конструктор теста. Шаг 2 из 6/ Введите количество вопросов теста:");
             if (!int.TryParse(Console.ReadLine(), out int testQuestionsCount))
-            {
-                Console.Clear();
-                Console.WriteLine("[Ошибка!] На Шаге 2 введите целое число.\n");
-                CreateNewTest();
-            }
+                Exception("[Ошибка!] На Шаге 2 введите целое число.\n");
 
-            Console.WriteLine("\n/Конструктор теста. Шаг 3 из 6/ Введите количество вариантов ответа одного вопроса:");
+            Console.WriteLine("\n/Конструктор теста. Шаг 3 из 6/ Введите количество вариантов ответов вопроса (не менее 2):");
             if (!int.TryParse(Console.ReadLine(), out int questionAnswersCount) || questionAnswersCount < 2)
-            {
-                Console.Clear();
-                Console.WriteLine("[Ошибка!] На Шаге 3 введите целое число, большее чем 1.\n");
-                CreateNewTest();
-            }
+                Exception("[Ошибка!] На Шаге 3 введите целое число, большее чем 1.\n");
 
             for (int i = 0; i < testQuestionsCount; i++)
             {
                 Console.Clear();
-
                 Console.WriteLine($"\n/Конструктор теста. Шаг 4 из 6/ Введите вопрос теста #{i+1}:");
                 question.question = Console.ReadLine();
-
                 question.questionAnswers = new string[questionAnswersCount];
 
                 for (int j = 0; j < questionAnswersCount; j++)
                 {
                     Console.WriteLine($"\n\t/Конструктор теста. Шаг 5 из 6/ Введите вариант ответа ({j+1}):");
-                    
                     question.questionAnswers[j] = Console.ReadLine();
                 }
 
                 Console.WriteLine("\n/Конструктор теста. Шаг 6 из 6/ Введите номер правильного ответа:");
                 if (!int.TryParse(Console.ReadLine(), out question.questionRightAnswer) || question.questionRightAnswer > questionAnswersCount || question.questionRightAnswer < 1)
-                {
-                    Console.Clear();
-                    Console.WriteLine($"[Ошибка!] На Шаге 6 введите целое число, не большее чем количество ответов.\n");
-                    CreateNewTest();
-                }
+                    Exception($"[Ошибка!] На Шаге 6 введите целое число, не большее чем количество ответов.\n");
 
                 Test.Add(question);
             }
@@ -226,6 +211,15 @@ namespace ConsoleAppTester
             SaveTest(testName);
 
             Menu();
+        }
+
+        static void Exception(string message)
+        {
+            Console.Clear();
+
+            Console.WriteLine(message);
+
+            CreateNewTest();
         }
     }
 }
