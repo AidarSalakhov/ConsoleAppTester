@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
 using System.Diagnostics;    
@@ -90,14 +87,19 @@ namespace ConsoleAppTester
             try
             {
                 string json = JsonConvert.SerializeObject(Test);
+
                 File.WriteAllText($"{testName}.txt", json);
+
                 Console.Clear();
+
                 Console.WriteLine($"\nТест сохранён в файл. Название теста для его прохождения: {testName}\n");
             }
             catch (Exception) 
             {
                 Console.Clear();
+
                 Console.WriteLine("[Ошибка!] Не удалось сохранить тест!\n");
+
                 Menu();
             }
         }
@@ -118,7 +120,7 @@ namespace ConsoleAppTester
                 Console.WriteLine("Доступные тесты:");
 
                 for (int i = 0; i < TxtFiles.Count; i++)
-                    Console.WriteLine(TxtFiles[i]);
+                    Console.WriteLine(Path.GetFileNameWithoutExtension(TxtFiles[i]));
 
                 Console.WriteLine("\nВведите название теста для его прохождения:");
 
@@ -133,7 +135,9 @@ namespace ConsoleAppTester
             catch (Exception)
             {
                 Console.Clear();
+
                 Console.WriteLine("[Ошибка!] Такого теста не существует!\n");
+
                 Menu();
             }
         }
@@ -151,21 +155,15 @@ namespace ConsoleAppTester
                 Console.WriteLine("Варианты ответов:");
 
                 for (int j = 0; j < Test[i].questionAnswers.Length; j++)
-                {
                     Console.Write($"{j+1}) {Test[i].questionAnswers[j]}\t");
-                }
 
                 Console.WriteLine("\nВведите номер правильного ответа:");
 
                 if (!double.TryParse(Console.ReadLine(), out double userAnswer) || userAnswer > Test[i].questionAnswers.Length || 1 > userAnswer)
-                {
                     Console.WriteLine("[Ошибка!] Вы ввели номер несуществующего ответа, либо некорректный символ. Ваш ответ засчитан как неверный");
-                }
                 
                 if (userAnswer == Test[i].questionRightAnswer)
-                {
                     userRightAnswers++;
-                }
             }
 
             Console.WriteLine($"\n\nТест завершён в {DateTime.Now}. Процент правильных ответов: {System.Math.Round((double)(userRightAnswers / Convert.ToDouble(Test.Count) * 100))}%\n");
