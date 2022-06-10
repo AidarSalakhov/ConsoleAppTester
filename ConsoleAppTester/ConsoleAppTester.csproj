@@ -49,12 +49,11 @@
     <Compile Include="Actions.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Exceptions.cs" />
-    <Compile Include="File.cs" />
+    <Compile Include="FileOperations.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Styles.cs" />
     <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>

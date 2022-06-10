@@ -33,7 +33,7 @@ namespace ConsoleAppTester
 
                 default:
                     Console.Clear();
-                    Exceptions.WrongButton();
+                    Exceptions.Error(0);
                     ShowMenu();
                     break;
             }

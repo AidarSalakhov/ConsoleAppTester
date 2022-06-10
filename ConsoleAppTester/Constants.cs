@@ -8,5 +8,8 @@ namespace ConsoleAppTester
 {
     internal class Constants
     {
+        public const string ProgramName = "ConsoleAppTester";
+        public const string SaveFilePath = @"C:\Tester\";
+        public const string SaveFileExtension = ".txt";
     }
 }
