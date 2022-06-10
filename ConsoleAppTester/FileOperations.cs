@@ -17,7 +17,7 @@ namespace ConsoleAppTester
             }
             catch (Exception)
             {
-                Messages.SaveFailed(testName);
+                Exceptions.Error(3);
                 Menu.ShowMenu();
             }
         }
@@ -31,7 +31,7 @@ namespace ConsoleAppTester
             }
             catch (Exception)
             {
-                Messages.LoadFailed(testName);
+                Exceptions.Error(8);
                 Menu.ShowMenu();
                 return new List<Test.Question>();
             }
