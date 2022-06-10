@@ -82,6 +82,15 @@ namespace ConsoleAppTester
             }
         }
 
+        static void Exception(string message)
+        {
+            Console.Clear();
+
+            Console.WriteLine(message);
+
+            CreateNewTest();
+        }
+
         static void SaveTest(string testName)
         {
             try
@@ -214,15 +223,6 @@ namespace ConsoleAppTester
             SaveTest(testName);
 
             Menu();
-        }
-
-        static void Exception(string message)
-        {
-            Console.Clear();
-
-            Console.WriteLine(message);
-
-            CreateNewTest();
         }
     }
 }
