@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using System.Diagnostics;    
+using System.Diagnostics;
 
 namespace ConsoleAppTester
 {
@@ -92,9 +92,9 @@ namespace ConsoleAppTester
 
                 Console.Clear();
 
-                Console.WriteLine($"\nТест сохранён в файл. Название теста для его прохождения: {testName}\n");
+                Console.WriteLine($"Тест сохранён в файл. Название теста для его прохождения: {testName}\n");
             }
-            catch (Exception) 
+            catch (Exception)
             {
                 Console.Clear();
 
@@ -108,7 +108,7 @@ namespace ConsoleAppTester
         {
             try
             {
-                List<string> TxtFiles = new List<string>(); 
+                List<string> TxtFiles = new List<string>();
 
                 DirectoryInfo dir = new DirectoryInfo(Directory.GetCurrentDirectory());
 
@@ -117,27 +117,28 @@ namespace ConsoleAppTester
                 foreach (FileInfo fi in files)
                     TxtFiles.Add(fi.ToString());
 
+                if (TxtFiles.Count < 1)
+                {
+                    Console.WriteLine("Нет доступных тестов для прохождения. Создайте новый.\n");
+                    Menu();
+                }
+
                 Console.WriteLine("Доступные тесты:");
 
                 for (int i = 0; i < TxtFiles.Count; i++)
                     Console.WriteLine(Path.GetFileNameWithoutExtension(TxtFiles[i]));
 
                 Console.WriteLine("\nВведите название теста для его прохождения:");
-
                 string testName = Console.ReadLine();
-
                 string json = File.ReadAllText($"{testName}.txt").ToString();
-
                 Test = JsonConvert.DeserializeObject<List<Question>>(json);
-
-                Console.WriteLine($"\nТест успешно загружен и начался в {DateTime.Now}. Вопросы: ");
+                Console.Clear();
+                Console.WriteLine($"---Тест \"{testName}\" успешно загружен и начался в {DateTime.Now}---\n\nВопросы: ");
             }
             catch (Exception)
             {
                 Console.Clear();
-
                 Console.WriteLine("[Ошибка!] Такого теста не существует!\n");
-
                 Menu();
             }
         }
@@ -150,25 +151,25 @@ namespace ConsoleAppTester
 
             for (int i = 0; i < Test.Count; i++)
             {
-                Console.WriteLine($"\n\n{Test[i].question}");
+                Console.WriteLine($"\n{Test[i].question}");
 
                 Console.WriteLine("Варианты ответов:");
 
                 for (int j = 0; j < Test[i].questionAnswers.Length; j++)
-                    Console.Write($"{j+1}) {Test[i].questionAnswers[j]}\t");
+                    Console.Write($"{j + 1}) {Test[i].questionAnswers[j]}\t");
 
                 Console.WriteLine("\nВведите номер правильного ответа:");
 
                 if (!double.TryParse(Console.ReadLine(), out double userAnswer) || userAnswer > Test[i].questionAnswers.Length || 1 > userAnswer)
-                    Console.WriteLine("[Ошибка!] Вы ввели номер несуществующего ответа, либо некорректный символ. Ваш ответ засчитан как неверный");
-                
+                    Console.WriteLine("[Ошибка!] Вы ввели номер несуществующего ответа, либо некорректный символ. Ваш ответ засчитан как неверный.");
+
                 if (userAnswer == Test[i].questionRightAnswer)
                     userRightAnswers++;
             }
 
             Console.Clear();
 
-            Console.WriteLine($"\n\nТест завершён в {DateTime.Now}. Процент правильных ответов: {System.Math.Round((double)(userRightAnswers / Convert.ToDouble(Test.Count) * 100))}%\n");
+            Console.WriteLine($"---Тест завершён в {DateTime.Now}---\n\nПроцент правильных ответов: {System.Math.Round((double)(userRightAnswers / Convert.ToDouble(Test.Count) * 100))}%\n");
 
             Test.Clear();
 
@@ -193,13 +194,13 @@ namespace ConsoleAppTester
             for (int i = 0; i < testQuestionsCount; i++)
             {
                 Console.Clear();
-                Console.WriteLine($"\n/Конструктор теста. Шаг 4 из 6/ Введите вопрос теста #{i+1}:");
+                Console.WriteLine($"\n/Конструктор теста. Шаг 4 из 6/ Введите вопрос теста #{i + 1}:");
                 question.question = Console.ReadLine();
                 question.questionAnswers = new string[questionAnswersCount];
 
                 for (int j = 0; j < questionAnswersCount; j++)
                 {
-                    Console.WriteLine($"\n\t/Конструктор теста. Шаг 5 из 6/ Введите вариант ответа ({j+1}):");
+                    Console.WriteLine($"\n/Конструктор теста. Шаг 5 из 6/ Введите вариант ответа ({j + 1}):");
                     question.questionAnswers[j] = Console.ReadLine();
                 }
 
@@ -209,7 +210,7 @@ namespace ConsoleAppTester
 
                 Test.Add(question);
             }
-            
+
             SaveTest(testName);
 
             Menu();
