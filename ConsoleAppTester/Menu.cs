@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 
 namespace ConsoleAppTester
@@ -19,12 +15,12 @@ namespace ConsoleAppTester
             {
                 case ConsoleKey.S:
                     Console.Clear();
-                    Actions.StartTest();
+                    TestOperations.StartTest();
                     break;
 
                 case ConsoleKey.N:
                     Console.Clear();
-                    Actions.CreateNewTest();
+                    TestOperations.CreateNewTest();
                     break;
 
                 case ConsoleKey.Escape:

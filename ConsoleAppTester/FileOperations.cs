@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.IO;
 
-
 namespace ConsoleAppTester
 {
     internal class FileOperations
@@ -12,7 +11,7 @@ namespace ConsoleAppTester
         {
             try
             {
-                string json = JsonConvert.SerializeObject(Actions.newTest);
+                string json = JsonConvert.SerializeObject(TestOperations.newTest);
                 File.WriteAllText(testName + Constants.SaveFileExtension, json);
             }
             catch (Exception)
@@ -22,18 +21,18 @@ namespace ConsoleAppTester
             }
         }
 
-        public static List<Test.Question> LoadTest(string testName)
+        public static List<TestContent.Question> LoadTest(string testName)
         {
             try
             {
                 string json = File.ReadAllText(testName + Constants.SaveFileExtension).ToString();
-                return Actions.newTest = JsonConvert.DeserializeObject<List<Test.Question>>(json);
+                return TestOperations.newTest = JsonConvert.DeserializeObject<List<TestContent.Question>>(json);
             }
             catch (Exception)
             {
                 ShowMessage.Error(8);
                 Menu.ShowMenu();
-                return new List<Test.Question>();
+                return new List<TestContent.Question>();
             }
         }
 
