@@ -34,8 +34,8 @@ namespace ConsoleAppTester
             }
 
             Console.Clear();
-            ShowMessage.Info(8);
-            Console.Write(Math.Round((double)(userRightAnswers / Convert.ToDouble(newTest.Count) * 100)) + "%");
+            ShowMessage.Info(8, false);
+            Console.WriteLine(Math.Round((double)(userRightAnswers / Convert.ToDouble(newTest.Count) * 100)) + "%");
             newTest.Clear();
             Menu.ShowMenu();
         }
@@ -64,15 +64,15 @@ namespace ConsoleAppTester
             for (int i = 0; i < testQuestionsCount; i++)
             {
                 Console.Clear();
-                ShowMessage.Info(12);
-                Console.Write(i + 1);
+                ShowMessage.Info(12, false);
+                Console.WriteLine(i + 1);
                 question.question = Console.ReadLine();
                 question.questionAnswers = new string[questionAnswersCount];
 
                 for (int j = 0; j < questionAnswersCount; j++)
                 {
-                    ShowMessage.Info(13);
-                    Console.Write(i + 1);
+                    ShowMessage.Info(13, false);
+                    Console.WriteLine(j + 1);
                     question.questionAnswers[j] = Console.ReadLine();
                 }
 

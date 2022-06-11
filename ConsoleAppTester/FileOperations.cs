@@ -30,7 +30,7 @@ namespace ConsoleAppTester
             }
             catch (Exception)
             {
-                ShowMessage.Error(8);
+                ShowMessage.Error(7);
                 Menu.ShowMenu();
                 return new List<TestContent.Question>();
             }

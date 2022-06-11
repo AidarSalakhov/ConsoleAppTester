@@ -4,14 +4,22 @@ namespace ConsoleAppTester
 {
     internal class ShowMessage
     {
-        public static void Error(int code)
+        public static void Error(int code, bool line = true)
         {
-            Console.WriteLine(Messages.errors[code]);
+            if (line)
+            {
+                Console.WriteLine(Messages.errors[code]);
+            }
+            Console.Write(Messages.errors[code]);
         }
 
-        public static void Info(int code)
+        public static void Info(int code, bool line = true)
         {
-            Console.WriteLine(Messages.info[code]);
+            if (line)
+            {
+                Console.WriteLine(Messages.errors[code]);
+            }
+            Console.Write(Messages.errors[code]);
         }
     }
 }
