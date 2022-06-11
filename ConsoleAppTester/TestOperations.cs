@@ -47,7 +47,6 @@ namespace ConsoleAppTester
         public static void CreateNewTest()
         {
             newTest.Clear();
-
             ShowMessage.Info(9);
             string testName = Console.ReadLine();
 
