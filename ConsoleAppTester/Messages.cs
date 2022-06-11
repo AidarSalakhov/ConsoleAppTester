@@ -9,46 +9,35 @@ namespace ConsoleAppTester
 {
     internal class Messages
     {
-        public static void MenuText()
+        public static Dictionary<int, string> errors = new Dictionary<int, string>
         {
-            Console.WriteLine("\t----Выберите действие----");
-            Console.WriteLine("\t[S] - Пройти тест");
-            Console.WriteLine("\t[N] - Создать тест");
-            Console.WriteLine("\t[Esc] - Выйти из программы");
-        }
+            { 0 , "[Ошибка 000] Вы нажали неверную клавишу!\n"},
+            { 1 , "[Ошибка 001] Введённого вами теста не существует!\n"},
+            { 2 , "[Ошибка 003] Не удалось сохранить тест!\n"},
+            { 3 , "[Ошибка 004] Вы ввели номер несуществующего ответа, либо некорректный символ. Ваш ответ засчитан как неверный!\n"},
+            { 4 , "[Ошибка 005] На Шаге 2 введите целое число!\n"},
+            { 5 , "[Ошибка 006] На Шаге 3 введите целое число, большее чем 1!\n"},
+            { 6 , "[Ошибка 007] На Шаге 6 введите целое число, не большее чем количество ответов!\n"},
+            { 7 , "[Ошибка 008] Не удалось загрузить тест!\n"}
+        };
 
-        public static void SaveSuccessful(string testName)
+        public static Dictionary<int, string> info = new Dictionary<int, string>
         {
-            Console.WriteLine($"Тест сохранён в файл. Название теста для его прохождения: {testName}\n");
-        }
-        
-        public static void NoTests()
-        {
-            Console.WriteLine("Нет доступных тестов для прохождения. Создайте новый.\n");
-        }
-        public static void GotTests(List<string> TxtFiles)
-        {
-            Console.WriteLine("Доступные тесты:");
-            for (int i = 0; i < TxtFiles.Count; i++)
-                Console.WriteLine(Path.GetFileNameWithoutExtension(TxtFiles[i]));
-        }
-        public static void WriteTestName()
-        {
-            Console.WriteLine("\nВведите название теста для его прохождения:");
-        }
-        public static void TestStarted(string testName)
-        {
-            Console.WriteLine($"---Тест \"{testName}\" успешно загружен и начался в {DateTime.Now}---\n\nВопросы: ");
-        }
-        
-        public static void Exception(string message)
-        {
-            Console.Clear();
-
-            Console.WriteLine(message);
-
-            Actions.CreateNewTest();
-        }
-
+            { 0 , "\t----Выберите действие----\n\t[S] - Пройти тест\n\t[N] - Создать тест\n\t[Esc] - Выйти из программы\n"},
+            { 1 , "Тест сохранён в файл.\n"},
+            { 2 , "Нет доступных тестов для прохождения. Создайте новый.\n"},
+            { 3 , "Введите название теста для его прохождения:\n"},
+            { 4 , $"---Тест успешно загружен и начался в {DateTime.Now}---\n\nВопросы:\n"},
+            { 5 , "Доступные тесты:\n"},
+            { 6 , "Варианты ответов:\n"},
+            { 7 , "Введите номер правильного ответа:\n"},
+            { 8 , $"---Тест завершён в {DateTime.Now}---\n\nПроцент правильных ответов:" },
+            { 9 , "\n/Конструктор теста. Шаг 1 из 6/ Введите название теста:"},
+            { 10 , "\n/Конструктор теста. Шаг 2 из 6/ Введите количество вопросов теста:"},
+            { 11 , "\n/Конструктор теста. Шаг 3 из 6/ Введите количество вариантов ответов вопроса (не менее 2):"},
+            { 12 , "\n/Конструктор теста. Шаг 4 из 6/ Введите вопрос теста #"},
+            { 13 , "\n/Конструктор теста. Шаг 5 из 6/ Введите вариант ответа №"},
+            { 14 , "\n/Конструктор теста. Шаг 6 из 6/ Введите номер правильного ответа:"}
+        };
     }
 }

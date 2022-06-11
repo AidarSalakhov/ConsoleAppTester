@@ -12,12 +12,12 @@ namespace ConsoleAppTester
         {
             try
             {
-                string json = JsonConvert.SerializeObject(Test.newTest);
+                string json = JsonConvert.SerializeObject(Actions.newTest);
                 File.WriteAllText(testName + Constants.SaveFileExtension, json);
             }
             catch (Exception)
             {
-                Exceptions.Error(3);
+                ShowMessage.Error(3);
                 Menu.ShowMenu();
             }
         }
@@ -27,11 +27,11 @@ namespace ConsoleAppTester
             try
             {
                 string json = File.ReadAllText(testName + Constants.SaveFileExtension).ToString();
-                return Test.newTest = JsonConvert.DeserializeObject<List<Test.Question>>(json);
+                return Actions.newTest = JsonConvert.DeserializeObject<List<Test.Question>>(json);
             }
             catch (Exception)
             {
-                Exceptions.Error(8);
+                ShowMessage.Error(8);
                 Menu.ShowMenu();
                 return new List<Test.Question>();
             }
@@ -48,11 +48,12 @@ namespace ConsoleAppTester
 
             if (TxtFiles.Count < 1)
             {
-                Messages.NoTests();
+                ShowMessage.Info(2);
                 Menu.ShowMenu();
             }
 
-            Messages.GotTests(TxtFiles);
+            for (int i = 0; i < TxtFiles.Count; i++)
+                Console.WriteLine(Path.GetFileNameWithoutExtension(TxtFiles[i]));
         }
     }
 }

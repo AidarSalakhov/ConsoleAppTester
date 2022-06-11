@@ -11,7 +11,7 @@ namespace ConsoleAppTester
     {
         public static void ShowMenu()
         {
-            Messages.MenuText();
+            ShowMessage.Info(0);
 
             ConsoleKey key = Console.ReadKey(true).Key;
 
@@ -33,7 +33,7 @@ namespace ConsoleAppTester
 
                 default:
                     Console.Clear();
-                    Exceptions.Error(0);
+                    ShowMessage.Error(0);
                     ShowMenu();
                     break;
             }

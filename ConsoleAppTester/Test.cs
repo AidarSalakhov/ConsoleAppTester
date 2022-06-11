@@ -8,10 +8,6 @@ namespace ConsoleAppTester
 {
     internal class Test
     {
-        public static List<Question> newTest = new List<Question>();
-
-        public static Question question = new Question();
-
         public struct Question
         {
             public string question;
