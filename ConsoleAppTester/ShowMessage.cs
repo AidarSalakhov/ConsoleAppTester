@@ -10,7 +10,10 @@ namespace ConsoleAppTester
             {
                 Console.WriteLine(Messages.errors[code]);
             }
-            Console.Write(Messages.errors[code]);
+            else
+            {
+                Console.Write(Messages.errors[code]);
+            }
         }
 
         public static void Info(int code, bool line = true)
@@ -19,7 +22,10 @@ namespace ConsoleAppTester
             {
                 Console.WriteLine(Messages.info[code]);
             }
-            Console.Write(Messages.info[code]);
+            else
+            {
+                Console.Write(Messages.info[code]);
+            }
         }
     }
 }
