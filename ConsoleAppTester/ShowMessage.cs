@@ -17,9 +17,9 @@ namespace ConsoleAppTester
         {
             if (line)
             {
-                Console.WriteLine(Messages.errors[code]);
+                Console.WriteLine(Messages.info[code]);
             }
-            Console.Write(Messages.errors[code]);
+            Console.Write(Messages.info[code]);
         }
     }
 }
