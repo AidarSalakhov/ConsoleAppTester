@@ -11,9 +11,13 @@ namespace ConsoleAppTester
 
         public static void StartTest()
         {
+            ShowMessage.Info(5);
+            FileOperations.ViewDirectoryTests();
             ShowMessage.Info(3);
             string testName = Console.ReadLine();
             FileOperations.LoadTest(testName);
+            Console.Clear();
+            ShowMessage.Info(4);
             int userRightAnswers = 0;
 
             for (int i = 0; i < newTest.Count; i++)
@@ -27,7 +31,7 @@ namespace ConsoleAppTester
                 ShowMessage.Info(7);
 
                 if (!double.TryParse(Console.ReadLine(), out double userAnswer) || userAnswer > newTest[i].questionAnswers.Length || 1 > userAnswer)
-                    ShowMessage.Error(4);
+                    ShowMessage.Error(3);
 
                 if (userAnswer == newTest[i].questionRightAnswer)
                     userRightAnswers++;
@@ -35,7 +39,7 @@ namespace ConsoleAppTester
 
             Console.Clear();
             ShowMessage.Info(8, false);
-            Console.WriteLine(Math.Round((double)(userRightAnswers / Convert.ToDouble(newTest.Count) * 100)) + "%");
+            Console.WriteLine(Math.Round((double)(userRightAnswers / Convert.ToDouble(newTest.Count) * 100)) + "%\n");
             newTest.Clear();
             Menu.ShowMenu();
         }
@@ -51,6 +55,7 @@ namespace ConsoleAppTester
             if (!int.TryParse(Console.ReadLine(), out int testQuestionsCount))
             {
                 ShowMessage.Error(5);
+                Console.Clear();
                 CreateNewTest();
             }
 
@@ -58,6 +63,7 @@ namespace ConsoleAppTester
             if (!int.TryParse(Console.ReadLine(), out int questionAnswersCount) || questionAnswersCount < 2)
             {
                 ShowMessage.Error(6);
+                Console.Clear();
                 CreateNewTest();
             }
 
@@ -87,6 +93,7 @@ namespace ConsoleAppTester
             }
 
             FileOperations.SaveTest(testName);
+            Console.Clear();
             ShowMessage.Info(1);
             Menu.ShowMenu();
         }
